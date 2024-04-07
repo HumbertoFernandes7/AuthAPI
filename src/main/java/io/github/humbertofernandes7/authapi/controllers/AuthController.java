@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.humbertofernandes7.authapi.dtos.inputs.AuthInput;
+import io.github.humbertofernandes7.authapi.services.AuthService;
 
 @RestController
 @RequestMapping("/auth")
@@ -17,12 +18,15 @@ public class AuthController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
+	@Autowired
+	private AuthService authService;
+	
 	
 	@PostMapping
 	public String auth(@RequestBody AuthInput authInput) {
 		UsernamePasswordAuthenticationToken tokenUsuario = new UsernamePasswordAuthenticationToken(authInput.getEmail(), authInput.getSenha());
 		authenticationManager.authenticate(tokenUsuario);
-		return "Autenticado com sucesso ";
-		
+		return authService.obtenToken(authInput);
 	}
+	
 }

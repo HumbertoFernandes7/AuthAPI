@@ -23,7 +23,6 @@ import lombok.Setter;
 @Table(name = "tb_usuario")
 public class UsuarioEntity implements UserDetails {
 
-	
 	private static final long serialVersionUID = 1L;
 
 	@Id

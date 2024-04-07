@@ -15,10 +15,10 @@ import io.github.humbertofernandes7.authapi.services.UsuarioService;
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@Autowired
 	private UsuarioConvert usuarioConvert;
 
@@ -26,8 +26,7 @@ public class UsuarioController {
 	public UsuarioOutput cadastrarUsuario(@RequestBody UsuarioInput usuarioInput) {
 		UsuarioEntity usuarioConvertidoParaEntity = usuarioConvert.InputToNewEntity(usuarioInput);
 		UsuarioEntity usuarioCadastrado = usuarioService.cadastrarUsuario(usuarioConvertidoParaEntity);
-		UsuarioOutput usuarioConvertidoParaOutput = usuarioConvert.EntityToOutput(usuarioCadastrado);
-		return usuarioConvertidoParaOutput;
-		
+		return usuarioConvert.EntityToOutput(usuarioCadastrado);
+
 	}
 }

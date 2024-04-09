@@ -1,6 +1,7 @@
 package io.github.humbertofernandes7.authapi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import io.github.humbertofernandes7.authapi.dtos.inputs.UsuarioInput;
 import io.github.humbertofernandes7.authapi.dtos.outputs.UsuarioOutput;
 import io.github.humbertofernandes7.authapi.entites.UsuarioEntity;
 import io.github.humbertofernandes7.authapi.services.UsuarioService;
+
 
 @RestController
 @RequestMapping("/usuarios")
@@ -28,5 +30,15 @@ public class UsuarioController {
 		UsuarioEntity usuarioCadastrado = usuarioService.cadastrarUsuario(usuarioConvertidoParaEntity);
 		return usuarioConvert.EntityToOutput(usuarioCadastrado);
 
+	}
+	
+	@GetMapping("/admin")
+	public String testeAdmin() {
+		return new String("Você é um ADMIN");
+	}
+	
+	@GetMapping("/user")
+	public String testeUser() {
+		return new String("Você é um USER");
 	}
 }

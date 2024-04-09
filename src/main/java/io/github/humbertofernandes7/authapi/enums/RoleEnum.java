@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public enum CargoEnum {
+public enum RoleEnum {
 
-	ADMIM("admim"),
+	ADMIN("admin"),
 	USER("user");
 	
-	private String cargo;
+	private String role;
 }

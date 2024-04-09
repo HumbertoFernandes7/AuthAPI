@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import io.github.humbertofernandes7.authapi.enums.CargoEnum;
+import io.github.humbertofernandes7.authapi.enums.RoleEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,24 +30,28 @@ public class UsuarioEntity implements UserDetails {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "nome")
+	@Column(name = "nome", nullable = true)
 	private String nome;
 
-	@Column(name = "email")
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 
-	@Column(name = "senha")
+	@Column(name = "senha", nullable = false)
 	private String senha;
 
-	@Column(name = "cargo")
-	private CargoEnum cargo;
+	@Column(name = "role", nullable = false)
+	private RoleEnum role;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		if (this.cargo == CargoEnum.ADMIM) {
-			return List.of(new SimpleGrantedAuthority("CARGO_ADMIM"), new SimpleGrantedAuthority("CARGO_USER"));
+		if (this.role == RoleEnum.ADMIN) {
+			return List.of(
+					new SimpleGrantedAuthority("ROLE_ADMIN"),
+					new SimpleGrantedAuthority("ROLE_USER"));
 		}
-		return List.of(new SimpleGrantedAuthority("CARGO_USER"));
+		return List.of(
+				new SimpleGrantedAuthority("ROLE_ADMIN")
+				);
 	}
 
 	@Override

@@ -22,11 +22,10 @@ public class UsuarioService {
 		UsuarioEntity emailExistente = usuarioRepository.findByEmail(usuarioEntity.getEmail());
 		
 		if(emailExistente != null) {
-			throw new RuntimeException("Email Ja Cadastrado");
+			throw new RuntimeException("Email Já Cadastrado");
 		}
 		
 		String senhaCriptografada = passwordEncoder.encode(usuarioEntity.getSenha());
-		
 		usuarioEntity.setSenha(senhaCriptografada);
 		
 		return usuarioRepository.save(usuarioEntity);

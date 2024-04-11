@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,8 +23,9 @@ import io.github.humbertofernandes7.authapi.repositories.UsuarioRepository;
 
 @Service
 public class AuthService implements UserDetailsService {
-
-	private static final String SECRET_KEY = "my-secret-2hj3bbs6rl7cy3n5e67e3";
+	
+	@Value("${auth-api.jwt.secret}")
+	private String SECRET_KEY;
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;

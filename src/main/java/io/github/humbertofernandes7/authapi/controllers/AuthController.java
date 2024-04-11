@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.humbertofernandes7.authapi.dtos.inputs.AuthInput;
 import io.github.humbertofernandes7.authapi.services.AuthService;
+import io.github.humbertofernandes7.authapi.services.UsuarioService;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,12 +22,17 @@ public class AuthController {
 	@Autowired
 	private AuthService authService;
 	
+	@Autowired
+	private UsuarioService usuarioService ;
+	
 	
 	@PostMapping
 	public String auth(@RequestBody AuthInput authInput) {
+		usuarioService.verificaEmailCadastrado(authInput.getEmail());
 		UsernamePasswordAuthenticationToken tokenUsuario = new UsernamePasswordAuthenticationToken(authInput.getEmail(), authInput.getSenha());
 		authenticationManager.authenticate(tokenUsuario);
 		return authService.obtenToken(authInput);
 	}
+
 	
 }

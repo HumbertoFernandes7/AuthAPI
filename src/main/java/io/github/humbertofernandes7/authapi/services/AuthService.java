@@ -17,14 +17,14 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 
 import io.github.humbertofernandes7.authapi.dtos.inputs.AuthInput;
 import io.github.humbertofernandes7.authapi.entites.UsuarioEntity;
+import io.github.humbertofernandes7.authapi.exceptions.BusinessException;
 import io.github.humbertofernandes7.authapi.repositories.UsuarioRepository;
 
 @Service
 public class AuthService implements UserDetailsService {
 
 	private static final String SECRET_KEY = "my-secret-2hj3bbs6rl7cy3n5e67e3";
-	
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
@@ -33,33 +33,36 @@ public class AuthService implements UserDetailsService {
 		return usuarioRepository.findByEmail(email);
 
 	}
+	
 
 	public String obtenToken(AuthInput authInput) {
 		UsuarioEntity usuarioEntity = usuarioRepository.findByEmail(authInput.getEmail());
 		return geraTokenJwt(usuarioEntity);
 	}
+	
 
 	public String geraTokenJwt(UsuarioEntity usuarioEntity) {
 		try {
 
 			Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
 
-			String token = JWT.create().
-					withIssuer("auth-api")
+			String token = JWT.create()
+					.withIssuer("auth-api")
 					.withClaim("id", usuarioEntity.getId())
 					.withSubject(usuarioEntity.getEmail())
 					.withClaim("cargo", usuarioEntity.getRole().toString())
-					.withExpiresAt(geraDataExpiracaoToken()).sign(algorithm);
+					.withExpiresAt(geraDataExpiracaoToken())
+					.sign(algorithm);
 
 			return token;
 
 		} catch (JWTCreationException exception) {
-			throw new RuntimeException("Erro ao tentar gerar o token! " + exception.getMessage());
+			throw new BusinessException("Ocorreu um erro ao gerar o Token, tente novamente");
 		}
 
 	}
 
-
+	
 	public String validaTokenJwt(String token) {
 
 		try {
@@ -71,7 +74,7 @@ public class AuthService implements UserDetailsService {
 					.getSubject();
 
 		} catch (JWTVerificationException jwtVerificationException) {
-			return jwtVerificationException.getMessage();
+			throw new BusinessException("Ocorreu um erro ao validar o Token, tente novamente");
 		}
 	}
 	

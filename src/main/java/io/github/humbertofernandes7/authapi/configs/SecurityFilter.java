@@ -50,7 +50,6 @@ public class SecurityFilter extends OncePerRequestFilter {
 		if (authHeader == null) {
 			return null;
 		}
-		// deve negar essa validação porque se não sempre que passar o token ele  vai devolver null.
 		if (!authHeader.split(" ")[0].equals("Bearer")) {
 			return null;
 		}

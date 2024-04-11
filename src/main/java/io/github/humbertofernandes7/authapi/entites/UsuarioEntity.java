@@ -50,7 +50,7 @@ public class UsuarioEntity implements UserDetails {
 					new SimpleGrantedAuthority("ROLE_USER"));
 		}
 		return List.of(
-				new SimpleGrantedAuthority("ROLE_ADMIN")
+				new SimpleGrantedAuthority("ROLE_USER")
 				);
 	}
 

@@ -35,12 +35,12 @@ Uma vez que o projeto esteja em execução, você pode acessar os endpoints da A
   - JSON: `{ "email": "email@email.com", "senha": "senha_secreta" }`
   - Retorna um token JWT se a autenticação for bem-sucedida.
 
-  - **/usuarios/admin**: Endpoint para fazer a requisição de administrador.
+- **/usuarios/admin**: Endpoint para fazer a requisição de administrador.
   - Método: `GET`
   - Authorization - `Bearer`
   - Retorna sucesso caso seja um usuario ADMIN.
 
-  - **/usuarios/user**: Endpoint para fazer a requisição de usuario.
+- **/usuarios/user**: Endpoint para fazer a requisição de usuario.
   - Método: `GET`
   - Authorization - `Bearer`
   - Retorna sucesso caso seja um usuario ADMIN or USER.

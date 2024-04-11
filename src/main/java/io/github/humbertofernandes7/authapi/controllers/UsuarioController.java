@@ -34,11 +34,11 @@ public class UsuarioController {
 	
 	@GetMapping("/admin")
 	public String testeAdmin() {
-		return new String("Você é um ADMIN");
+		return new String("Você tem permissão ADMIN");
 	}
 	
 	@GetMapping("/user")
 	public String testeUser() {
-		return new String("Você é um USER");
+		return new String("Você tem permissão USER");
 	}
 }
